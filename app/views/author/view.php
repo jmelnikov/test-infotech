@@ -28,6 +28,8 @@ $this->params['breadcrumbs'][] = $this->title;
                 'method' => 'post',
             ],
         ]) ?>
+        <?= Html::a('Подписаться', ['subscription/subscribe', 'author_id' => $model->id], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Отписаться', ['subscription/unsubscribe', 'author_id' => $model->id], ['class' => 'btn btn-warning']) ?>
     </p>
 
     <?= DetailView::widget([
