@@ -26,6 +26,7 @@ services:
     restart: always
     command: >
       sh -c "composer install &&
+             php yii migrate --interactive=0 &&
              chmod -R 777 /var/www/web &&
              chmod -R 777 /var/www/runtime &&
              php-fpm"

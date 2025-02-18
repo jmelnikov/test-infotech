@@ -8,7 +8,7 @@ use yii\widgets\ActiveForm;
  * @var User $user
  */
 
-$this->title = 'Login';
+$this->title = 'Вход';
 ?>
 
 <h1><?= Html::encode($this->title) ?></h1>
@@ -17,6 +17,7 @@ $this->title = 'Login';
 <?= $form->field($user, 'username') ?>
 <?= $form->field($user, 'password_hash')->passwordInput() ?>
 <div class="form-group">
-    <?= Html::submitButton('Login', ['class' => 'btn btn-primary']) ?>
+    <?= Html::submitButton('Войти', ['class' => 'btn btn-primary']) ?>
+    <?= Html::a('Регистрация', ['auth/register'], ['class' => 'btn btn-success']) ?>
 </div>
 <?php ActiveForm::end(); ?>

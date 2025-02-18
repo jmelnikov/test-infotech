@@ -8,7 +8,7 @@ use yii\widgets\ActiveForm;
  * @var User $user
  */
 
-$this->title = 'Register';
+$this->title = 'Регистрация';
 ?>
 
 <h1><?= Html::encode($this->title) ?></h1>
@@ -17,6 +17,6 @@ $this->title = 'Register';
 <?= $form->field($user, 'username') ?>
 <?= $form->field($user, 'password_hash')->passwordInput() ?>
 <div class="form-group">
-    <?= Html::submitButton('Register', ['class' => 'btn btn-success']) ?>
+    <?= Html::submitButton('Зарегистрироваться', ['class' => 'btn btn-success']) ?>
 </div>
 <?php ActiveForm::end(); ?>

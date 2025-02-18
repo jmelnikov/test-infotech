@@ -9,10 +9,10 @@ use yii\web\IdentityInterface;
 
 /**
  * @property mixed|null $id
- * @property string     $username
- * @property string     $password_hash
- * @property string     $auth_key
- * @property int        $created_at
+ * @property string $username
+ * @property string $password_hash
+ * @property string $auth_key
+ * @property int $created_at
  *
  */
 class User extends ActiveRecord implements IdentityInterface
@@ -20,6 +20,21 @@ class User extends ActiveRecord implements IdentityInterface
     public static function tableName(): string
     {
         return 'user';
+    }
+
+    public static function findIdentity($id): User|IdentityInterface|null
+    {
+        return self::findOne($id);
+    }
+
+    public static function findIdentityByAccessToken($token, $type = null): null
+    {
+        return null;
+    }
+
+    public static function findByUsername($username): ?User
+    {
+        return self::findOne(['username' => $username]);
     }
 
     public function rules(): array
@@ -32,14 +47,15 @@ class User extends ActiveRecord implements IdentityInterface
         ];
     }
 
-    public static function findIdentity($id): User|IdentityInterface|null
+    public function attributeLabels(): array
     {
-        return self::findOne($id);
-    }
-
-    public static function findIdentityByAccessToken($token, $type = null): null
-    {
-        return null;
+        return [
+            'id' => 'ID',
+            'username' => 'Имя пользователя',
+            'password_hash' => 'Пароль',
+            'auth_key' => 'Ключ аутентификации',
+            'created_at' => 'Дата создания',
+        ];
     }
 
     public function getId()
@@ -55,11 +71,6 @@ class User extends ActiveRecord implements IdentityInterface
     public function validateAuthKey($authKey): bool
     {
         return $this->auth_key === $authKey;
-    }
-
-    public static function findByUsername($username): ?User
-    {
-        return self::findOne(['username' => $username]);
     }
 
     public function validatePassword($password): bool
