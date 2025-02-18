@@ -31,6 +31,22 @@ services:
              chmod -R 777 /var/www/runtime &&
              php-fpm"
 
+  app-sms-worker:
+    build:
+      context: ./app
+    volumes:
+      - ../app:/var/www
+      - ./app/php.ini:/usr/local/etc/php/conf.d/php.ini
+      - "/etc/timezone:/etc/timezone:ro"
+      - "/etc/localtime:/etc/localtime:ro"
+    container_name: ${PROJECT_NAME}-app-sms-worker
+    restart: always
+    depends_on:
+      - app
+      - redis
+    command: >
+      sh -c "php yii queue/listen"
+
   mysql:
     image: mysql:8.0
     container_name: ${PROJECT_NAME}-mysql
