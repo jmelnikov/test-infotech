@@ -6,14 +6,29 @@ $db = require __DIR__ . '/db.php';
 $config = [
     'id' => 'basic-console',
     'basePath' => dirname(__DIR__),
-    'bootstrap' => ['log'],
+    'bootstrap' => [
+        'log',
+        'queue', // добавляем модуль очередей
+    ],
     'controllerNamespace' => 'app\commands',
     'aliases' => [
         '@bower' => '@vendor/bower-asset',
-        '@npm'   => '@vendor/npm-asset',
+        '@npm' => '@vendor/npm-asset',
         '@tests' => '@app/tests',
     ],
     'components' => [
+        'redis' => [
+            'class' => 'yii\redis\Connection',
+            'hostname' => 'redis',
+            'port' => 6379,
+            'database' => 0,
+        ],
+        'queue' => [
+            'class' => 'yii\queue\redis\Queue',
+            'redis' => 'redis',
+            'channel' => 'queue',
+            'as log' => 'yii\queue\LogBehavior',
+        ],
         'cache' => [
             'class' => 'yii\caching\FileCache',
         ],

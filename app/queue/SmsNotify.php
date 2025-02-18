@@ -26,8 +26,7 @@ class SmsNotify extends BaseObject implements JobInterface
     public function execute($queue): void
     {
         $subscribers = Subscription::find()
-            ->joinWith('author')
-            ->where(['author.id' => $this->authorId])
+            ->where(['author_id' => $this->authorId])
             ->all();
 
         foreach ($subscribers as $subscriber) {
@@ -37,9 +36,11 @@ class SmsNotify extends BaseObject implements JobInterface
     }
 
     /**
+     * @param string $message
+     * @param string $phone
      * @return void
-     * @throws InvalidConfigException
      * @throws Exception
+     * @throws InvalidConfigException
      */
     private function sendMessage(string $message, string $phone): void
     {
@@ -55,12 +56,28 @@ class SmsNotify extends BaseObject implements JobInterface
                 'apikey' => $apiKey,
                 'format' => 'json',
             ])
-            ->send();
+            ->send()->getContent();
 
-        if (!$response->isOk) {
-            throw new Exception('Failed to send SMS');
+        $response = json_decode($response, true);
+
+        if (!empty($response['send'])) {
+            file_put_contents(
+                Yii::getAlias('@runtime/logs/sms.log'),
+                sprintf('На номер %s отправлено сообщение со следующим текстом: %s', $phone, $message) . PHP_EOL,
+                FILE_APPEND
+            );
+        } elseif (!empty($response['error'])) {
+            file_put_contents(
+                Yii::getAlias('@runtime/logs/sms.log'),
+                sprintf('Ошибка при отправке сообщения на номер %s: %s', $phone, $response['error']['description']) . PHP_EOL,
+                FILE_APPEND
+            );
+        } else {
+            file_put_contents(
+                Yii::getAlias('@runtime/logs/sms.log'),
+                sprintf('Неизвестная ошибка при отправке сообщения на номер %s', $phone) . PHP_EOL,
+                FILE_APPEND
+            );
         }
-
-        Yii::info('SMS sent to ' . $phone);
     }
 }

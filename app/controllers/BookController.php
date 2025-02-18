@@ -109,7 +109,7 @@ class BookController extends Controller
             $model->linkAuthors(Yii::$app->request->post());
 
             Yii::$app->queue->push(new SmsNotify([
-                'authorId' => $model->id,
+                'authorId' => ArrayHelper::getValue($model->authors, '0.id'),
                 'bookTitle' => $model->title,
             ]));
 

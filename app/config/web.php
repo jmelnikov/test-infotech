@@ -1,7 +1,5 @@
 <?php
 
-use yii\queue\redis\Queue;
-
 $params = require __DIR__ . '/params.php';
 $db = require __DIR__ . '/db.php';
 
@@ -26,7 +24,7 @@ $config = [
             'database' => 0,
         ],
         'queue' => [
-            'class' => Queue::class,
+            'class' => 'yii\queue\redis\Queue',
             'redis' => 'redis',
             'channel' => 'queue',
         ],
