@@ -34,23 +34,23 @@ services:
     image: mysql:8.0
     container_name: ${PROJECT_NAME}-mysql
     restart: always
-#    ports:
-#      - "3306:3306"
+    ports:
+      - "3306:3306"
     volumes:
-        - ./mysql-data:/var/lib/mysql
-        - "/etc/timezone:/etc/timezone:ro"
-        - "/etc/localtime:/etc/localtime:ro"
+      - ./mysql-data:/var/lib/mysql
+      - "/etc/timezone:/etc/timezone:ro"
+      - "/etc/localtime:/etc/localtime:ro"
     environment:
-        MYSQL_DATABASE: ${MYSQL_DATABASE}
-        MYSQL_USER: ${MYSQL_USER}
-        MYSQL_PASSWORD: ${MYSQL_PASSWORD}
-        MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
 
   redis:
     image: redis:latest
     container_name: ${PROJECT_NAME}-redis
     restart: always
-#    ports:
-#      - "6379:6379"
+    ports:
+      - "6379:6379"
     volumes:
       - ./redis-data:/data
