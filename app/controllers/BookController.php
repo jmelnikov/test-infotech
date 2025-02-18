@@ -105,7 +105,7 @@ class BookController extends Controller
         $model->updated_at = time();
 
         if ($model->save()) {
-            $model->linkAuthors(Yii::$app->request->post('authors', []));
+            $model->linkAuthors(Yii::$app->request->post());
             return $this->redirect(['view', 'id' => $model->id]);
         }
 

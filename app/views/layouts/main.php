@@ -43,7 +43,7 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
             ['label' => 'Главная', 'url' => ['/site/index']],
             ['label' => 'Авторы', 'url' => ['/author/index']],
             ['label' => 'Книги', 'url' => ['/book/index']],
-            ['label' => 'Топ-10', 'url' => ['/site/contact']],
+            ['label' => 'Топ-10', 'url' => ['/report/top-authors']],
             Yii::$app->user->isGuest
                 ? ['label' => 'Вход', 'url' => ['/auth/login']]
                 : '<li class="nav-item">'
@@ -73,7 +73,7 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
 <footer id="footer" class="mt-auto py-3 bg-light">
     <div class="container">
         <div class="row text-muted">
-            <div class="col-md-6 text-center text-md-start">&copy; My Company <?= date('Y') ?></div>
+            <div class="col-md-6 text-center text-md-start">&copy; Юрий Мельников <?= date('Y') ?></div>
             <div class="col-md-6 text-center text-md-end"><?= Yii::powered() ?></div>
         </div>
     </div>
