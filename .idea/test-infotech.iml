@@ -87,6 +87,11 @@
       <excludeFolder url="file://$MODULE_DIR$/app/vendor/yiisoft/yii2-faker" />
       <excludeFolder url="file://$MODULE_DIR$/app/vendor/yiisoft/yii2-gii" />
       <excludeFolder url="file://$MODULE_DIR$/app/vendor/yiisoft/yii2-symfonymailer" />
+      <excludeFolder url="file://$MODULE_DIR$/app/vendor/paragonie/random_compat" />
+      <excludeFolder url="file://$MODULE_DIR$/app/vendor/symfony/process" />
+      <excludeFolder url="file://$MODULE_DIR$/app/vendor/yiisoft/yii2-httpclient" />
+      <excludeFolder url="file://$MODULE_DIR$/app/vendor/yiisoft/yii2-queue" />
+      <excludeFolder url="file://$MODULE_DIR$/app/vendor/yiisoft/yii2-redis" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

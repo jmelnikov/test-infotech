@@ -1,12 +1,17 @@
 <?php
 
+use yii\queue\redis\Queue;
+
 $params = require __DIR__ . '/params.php';
 $db = require __DIR__ . '/db.php';
 
 $config = [
     'id' => 'basic',
     'basePath' => dirname(__DIR__),
-    'bootstrap' => ['log'],
+    'bootstrap' => [
+        'log',
+        'queue', // добавляем модуль очередей
+    ],
     'name' => 'ИнфоТех',
     'language' => 'ru-RU',
     'aliases' => [
@@ -14,6 +19,17 @@ $config = [
         '@npm' => '@vendor/npm-asset',
     ],
     'components' => [
+        'redis' => [
+            'class' => 'yii\redis\Connection',
+            'hostname' => 'redis',
+            'port' => 6379,
+            'database' => 0,
+        ],
+        'queue' => [
+            'class' => Queue::class,
+            'redis' => 'redis',
+            'channel' => 'queue',
+        ],
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
             'cookieValidationKey' => 'yx1t_2HUlPjGl8j64Bqx85pxuQzjSW2R',

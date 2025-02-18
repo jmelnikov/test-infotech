@@ -4,6 +4,7 @@ namespace app\controllers;
 
 use app\models\Author;
 use app\models\Book;
+use app\queue\SmsNotify;
 use Yii;
 use yii\data\ActiveDataProvider;
 use yii\db\Exception;
@@ -106,6 +107,12 @@ class BookController extends Controller
 
         if ($model->save()) {
             $model->linkAuthors(Yii::$app->request->post());
+
+            Yii::$app->queue->push(new SmsNotify([
+                'authorId' => $model->id,
+                'bookTitle' => $model->title,
+            ]));
+
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
